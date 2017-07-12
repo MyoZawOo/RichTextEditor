@@ -26,3 +26,4 @@ dependencies {
     compile 'com.github.huzhenjie:RichTextEditor:1.0.2'
 }
 ```
+
