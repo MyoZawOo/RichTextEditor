@@ -2,7 +2,7 @@
 
 
 
-![](https://github.com/MyoZawOo/RichTextEditor/blob/master/images/preview_two.png)
+![](http://imgur.com/a/Wh7tW)
 
 # How to
 
