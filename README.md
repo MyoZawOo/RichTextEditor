@@ -2,7 +2,7 @@
 
 
 
-![](http://imgur.com/a/Wh7tW)
+![](https://preview.ibb.co/cFsJNv/preview_two.png)
 
 # How to
 
