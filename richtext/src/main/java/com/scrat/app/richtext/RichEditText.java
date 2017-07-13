@@ -23,6 +23,7 @@ import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ import com.scrat.app.richtext.span.MyImgSpan;
 import com.scrat.app.richtext.span.MyQuoteSpan;
 import com.scrat.app.richtext.span.MyURLSpan;
 import com.scrat.app.richtext.util.BitmapUtil;
+import com.scrat.app.richtext.util.FontCache;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher {
     public static final int FORMAT_QUOTE = 0x06;
     public static final int FORMAT_LINK = 0x07;
     public static final int FORMAT_BIGGERTEXT = 0x08;
+    public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
 
     private int bulletColor = 0;
     private int bulletRadius = 0;
@@ -101,10 +104,31 @@ public class RichEditText extends AppCompatEditText implements TextWatcher {
         quoteColor = array.getColor(R.styleable.RichEditText_quoteColor, 0);
         quoteStripeWidth = array.getDimensionPixelSize(R.styleable.RichEditText_quoteStripeWidth, 0);
         quoteGapWidth = array.getDimensionPixelSize(R.styleable.RichEditText_quoteCapWidth, 0);
+        applyCustomFont(getContext(), attrs);
         array.recycle();
 
         if (historyEnable && historySize <= 0) {
             throw new IllegalArgumentException("historySize must > 0");
+        }
+    }
+
+    private void applyCustomFont(Context context, AttributeSet attrs){
+        int textStyle = attrs.getAttributeIntValue(ANDROID_SCHEMA, "textStyle", Typeface.NORMAL);
+        Typeface customFont = selectTypeface(context, textStyle);
+        setTypeface(customFont);
+    }
+
+    private Typeface selectTypeface(Context context, int textStyle){
+        switch (textStyle){
+            case Typeface.BOLD:
+                return FontCache.get("DroidSans-Bold.ttf", context);
+            case Typeface.ITALIC:
+                return FontCache.get("DroidSans.ttf", context);
+            case Typeface.BOLD_ITALIC:
+                return FontCache.get("DroidSans-Bold.ttf", context);
+            case Typeface.NORMAL:
+            default:
+                return FontCache.get("DroidSans.ttf", context);
         }
     }
 
@@ -156,7 +180,6 @@ public class RichEditText extends AppCompatEditText implements TextWatcher {
             return;
         }
         Log.i("BOLD", getEditableText().toString());
-
         getEditableText().setSpan(new StyleSpan(style), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
@@ -196,6 +219,7 @@ public class RichEditText extends AppCompatEditText implements TextWatcher {
                 }
             }
         }
+
     }
 
     protected boolean containStyle(int style, int start, int end) {
