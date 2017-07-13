@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         richEditText = (RichEditText) findViewById(R.id.rich_text);
-        richEditText.fromHtml("<blockquote>Android 端的富文本编辑器</blockquote>" +
-                "<ul><li>支持实时编辑</li><li>支持图片插入,加粗,斜体,下划线,删除线,列表,引用块,超链接,撤销与恢复等</li><li>使用<u>Glide</u>加载图片</li></ul>\n" +
-                "<img src=\"http://img5.duitang.com/uploads/item/201409/07/20140907195835_GUXNn.thumb.700_0.jpeg\">" +
-                "<img src=\"http://www.bz55.com/uploads/allimg/150707/139-150FG61K2.jpg\">");
+//        richEditText.fromHtml("<blockquote>Android 端的富文本编辑器</blockquote>" +
+//                "<ul><li>支持实时编辑</li><li>支持图片插入,加粗,斜体,下划线,删除线,列表,引用块,超链接,撤销与恢复等</li><li>使用<u>Glide</u>加载图片</li></ul>\n" +
+//                "<img src=\"http://img5.duitang.com/uploads/item/201409/07/20140907195835_GUXNn.thumb.700_0.jpeg\">" +
+//                "<img src=\"http://www.bz55.com/uploads/allimg/150707/139-150FG61K2.jpg\">");
     }
 
     @Override
@@ -68,11 +68,17 @@ public class MainActivity extends AppCompatActivity {
         richEditText.image(uri, width);
     }
 
+    public void setBiggerText(View v){
+        richEditText.biggerText(!richEditText.contains(RichEditText.FORMAT_BIGGERTEXT));
+    }
+
+
     /**
      * 加粗
      */
     public void setBold(View v) {
         richEditText.bold(!richEditText.contains(RichEditText.FORMAT_BOLD));
+
     }
 
     /**
